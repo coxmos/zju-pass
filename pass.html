@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>浙江大学通行码</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="./file/main.css">
+    <script src="./file/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="./file/jquery.qrcode.min.js"></script>
+    <script>
+        jQuery(function () {
+            var dateTime = getTime(false);
+
+            $("#hzjkm").append('<div  class="hz" style="color: #55b957">健康码为 绿码</div>');
+            $("#dateTime").append('<div class="time">同步时间：' + dateTime + '</div>');
+            nowtime = new Date();
+            year = nowtime.getFullYear();//年
+            month = nowtime.getMonth() + 1;//月
+            day = nowtime.getDate();//日
+            document.getElementById("div_valid").innerText = "有效期：" + year + "-" + month + "-" + day + " - " + year + "-" + month + "-" + day;
+
+            jQuery('#output').qrcode({
+                render: "table",
+                width: 180,
+                height: 180,
+                text: '通行码在7:00-22:00有效',
+                render: "canvas", //也可以替换为table
+                foreground: "#1E90FF",
+                background: "#FFF",
+
+            });
+        });
+
+        function p(s) {
+            return s < 10 ? '0' + s : s;
+        }
+
+        function getTime(isRealTime) {
+            nowtime = new Date();
+            year = nowtime.getFullYear();//年
+            month = nowtime.getMonth() + 1;//月
+            day = nowtime.getDate();//日
+            hour = nowtime.getHours();//时
+            minutes = nowtime.getMinutes(); //分
+            seconds = nowtime.getSeconds(); //秒
+
+            res = "123";
+            if (isRealTime) {
+                res = p(month) + "月" + p(day) + "日 " + p(hour) + ":" + p(minutes) + ":" + p(seconds);
+            } else {
+                res = p(year) + "-" + p(month) + "-" + p(day) + " " + p(hour - 3) + ":" + p(49) + ":" + p(seconds);
+            }
+            return res
+
+        }
+
+        //获取系统时间
+        function showTime() {
+            //文字增加空格
+            document.getElementById("div_timer").style = "white-space:pre;";
+            //显示时间
+            document.getElementById("div_timer").innerText = getTime(true);
+        }
+
+        setInterval("showTime()", 1000);
+    </script>
+</head>
+
+
+<body class="blue-bg">
+<div class="banner"><img src="file/image/text.png"></div>
+
+
+<div class="content-box">
+    <div class="top-title">
+        <h3>张鸿浩的通行码</h3>
+
+
+        <span class="bgr-blue">本科生</span>
+
+
+    </div>
+
+    <strong>
+        <div class="time2" id="div_timer" style="white-space: pre;"></div>
+    </strong>
+
+    <div class="qr">
+
+        <div id="output" style="margin-top: 10px;margin-bottom: 10px">
+
+        </div>
+
+
+    </div>
+
+
+    <div class="time" id="div_valid"></div>
+
+
+    <div id="hzjkm"></div>
+
+
+    <div id="dateTime"></div>
+
+    <p class="tip" style="margin-top: 10px;">凭蓝码可在浙江大学校园内通行<br>请主动出示，配合检查</p>
+
+
+    <div style="text-align:center; margin-top: 10px">
+        <a target="_blank" href="http://one.zju.edu.cn/taskcenter/wechat/index">办事大厅</a>&nbsp;&nbsp;&nbsp;
+        <a target="_blank" href="http://one.zju.edu.cn/pass_code/zx/getList">申请记录</a>&nbsp;&nbsp;&nbsp;
+
+
+    </div>
+</div>
+<div class="bottom-tip">
+    <h3>安 保 处 ：0571-88206110</h3>
+    <a href="http://xwfw.zju.edu.cn/mobile/redir.php?catalog_id=371039" target="_blank" class="link-btn">常见问题</a>
+    <h3>技术支持：0571-87951669</h3>
+</div>
+
+
+</body>
+</html>
